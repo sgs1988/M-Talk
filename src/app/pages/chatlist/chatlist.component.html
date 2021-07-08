@@ -1,0 +1,136 @@
+<div class="d-flex">
+  <div [ngClass]="{ 'hide-chat-list': hideChatList, 'hide-group-list': showParticipets }" class="chat-list-outer">
+    <div class="d-flex align-items-center justify-content-between mt-4 mb-1">
+      <h4 class="chatlist-title">Chats</h4>
+      <div class="dropdown">
+        <label class="btn btn-link" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          <span class="material-icons">more_vert</span>
+        </label>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+          <li (click)="openNewGroup()"><a class="dropdown-item cursor-pointer">New Group</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="input-group mb-4">
+        <div class="input-group-prepend">
+          <span class="input-group-text search-input-icon">
+            <span class="material-icons">search</span>
+          </span>
+        </div>
+        <input
+          class="form-control search-input"
+          [(ngModel)]="searchText"
+          placeholder="Search"
+          type="text"
+        />
+      </div>
+    </div>
+
+    <app-chat
+      *ngFor="let inbox of inboxes | inboxFilter: searchText"
+      [inbox]="inbox"
+    ></app-chat>
+  </div>
+  <!-- Add group participets -->
+  <div [ngClass]="{ 'participate-list-outer': showParticipets }" class="hide-group-list">
+    <div class="d-flex align-items-center justify-content-between pt-4 pb-2 participets-header">
+      <div *ngIf="!submitSection" class="pl-3 pr-3">
+        <a class="header-back-btn cursor-pointer" (click)="closeNewGroup()">
+          <span class="material-icons">arrow_back</span>
+          <span class="chatlist-title">Add group participets</span>
+        </a>
+      </div>
+      <div *ngIf="submitSection" class="pl-3 pr-3">
+        <a class="header-back-btn cursor-pointer" (click)="previousNewGroup()">
+          <span class="material-icons">arrow_back</span>
+          <span class="chatlist-title">New group</span>
+        </a>
+      </div>
+    </div>
+    <div *ngIf="!submitSection" class="pl-3">
+      <div class="form-group search-contact-list">
+        <div class="chip-section">
+          <div class="chip" *ngFor="let member of selectMembersList; let i = index">
+            <div>
+              <img
+                    class="profile-pic"
+                    src="./../../../assets/avatar-7.jpg"
+                    alt="profile-pic"
+                  />
+              <span class="mt-0">{{member.firstName | titlecase}} {{member.lastName | titlecase}}</span>
+            </div>
+            <div><span class="material-icons" (click)="removeMember(member, i)">close</span></div>
+          </div>
+        </div>
+        <div class="mb-4 pr-3">
+          <input
+            class="form-control search-input"
+            [(ngModel)]="searchContactList"
+            placeholder="Type contact name"
+            type="text"
+          />
+        </div>
+      </div>
+      <div class="participets-list pl-3" [ngClass]="{'participets-list-height-adjust-one': (selectMembersList.length > 0 && selectMembersList.length < 4), 'participets-list-height-adjust-two': selectMembersList.length > 3 }">
+        <ul class="list-unstyled contact-list" *ngIf="( contactList |  searchFilter: searchContactList) as result">
+            <li *ngFor="let contact of result; let i = index">
+              <div class="py-3 font-weight-bold brand-orange" *ngIf="checkIfNewAlphabet(contact.firstName)">
+                {{contact.firstName.charAt(0) | uppercase}}
+              </div>
+              <div class="participets-list-item" (click)="selectMember(contact)">
+                <div class="media">
+                  <img
+                    class="profile-pic"
+                    src="./../../../assets/avatar-7.jpg"
+                    alt="profile-pic"
+                  />
+                  <div class="media-body contact-list-item">
+                    <span class="mt-0">{{contact.firstName | titlecase}} {{contact.lastName | titlecase}}</span>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li *ngIf="result.length === 0" class="text-center">No contacts found</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="form-group search-contact-list new-group-form-section" *ngIf="submitSection">
+      <div class="pt-5 pb-5 text-center">
+        <img
+          class="profile-pic"
+          src="./../../../assets/avatar-7.jpg"
+          alt="profile-pic"
+        />
+      </div>
+      <div class="pb-5 pl-4 pr-4">
+        <input
+          class="form-control search-input"
+          [(ngModel)]="groupSubject"
+          placeholder="Group Subject"
+          type="text"
+          maxlength="25"
+        />
+      </div>
+    </div>
+
+    <div class="text-center participets-footer">
+      <button type="button" *ngIf="!submitSection" class="btn btn-success btn-circle btn-sm" [disabled]="selectMembersList.length === 0" (click)="nextNewGroup()">
+        <span class="material-icons">arrow_forward</span>
+      </button>
+      <button *ngIf="submitSection" type="button" class="btn btn-success btn-circle btn-sm" [disabled]="groupSubject == ''" (click)="submitNewGroup()">
+        <span class="material-icons">check</span>
+      </button>
+    </div>
+  </div>
+  <!-- New Group -->
+  <div
+    #messages
+    [ngClass]="{ 'show-message': hideChatList }"
+    class="message-outer"
+  >
+    <router-outlet></router-outlet>
+  </div>
+</div>

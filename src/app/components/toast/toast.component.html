@@ -1,0 +1,17 @@
+<ngb-toast
+  class="toast"
+  *ngFor="let toast of toast.toasts"
+  [class]="toast.classname"
+  [autohide]="true"
+  [delay]="toast.delay || 5000"
+>
+  <div class="toast-header flex-hv-centered">
+    <p class="mb-0 notice-text">Success</p>
+    <button class="close-btn d-flex" (click)="remove(toast)">
+      <span class="material-icons icon"> close </span>
+    </button>
+  </div>
+  <div class="toast-body">
+    <p class="notice-text">{{ toast.textOrTpl }}</p>
+  </div>
+</ngb-toast>

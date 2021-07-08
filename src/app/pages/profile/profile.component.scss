@@ -1,0 +1,185 @@
+.profile-page {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.profile-pic {
+  height: 100px;
+  width: 100px;
+}
+
+.profile-page-right-section {
+  width: 100%;
+  padding: 0 10px;
+  padding-bottom: 50px;
+  margin: 0 auto;
+
+  .section {
+    padding: 10px 10px 20px 10px;
+  }
+
+  .section-title {
+    font-size: 18px;
+    padding-top: 10px;
+    width: 100%;
+    border-bottom: 1px solid #ebebeb;
+    margin-bottom: 25px;
+    margin-left: 1%;
+  }
+
+  label {
+    margin-bottom: 0;
+    padding-top: 10px;
+  }
+
+  input {
+    padding: 10px 5px;
+    height: 40px;
+    font-size: 14px;
+    width: 100%;
+  }
+
+  .save-btn {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+
+  .logout-btn {
+    display: block;
+    width: 120px;
+    font-size: 13px;
+  }
+
+  .update-btn {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    padding: 8px 25px;
+  }
+
+  .account-section {
+    padding: 10px;
+
+    .profile-pic {
+      margin: 0 auto;
+      display: block;
+    }
+  }
+
+  .appearance-section {
+    .colors-outer {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .theme-toggle-btn {
+      margin-left: 1%;
+    }
+
+    .theme-toggle-btn p {
+      font-size: 14px;
+      margin-top: 2px;
+      margin-left: 10px;
+    }
+
+    .title-mini {
+      font-size: 16px;
+    }
+
+    .colors-outer button {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: none;
+      margin: 5px 10px;
+      background-color: #5e72e4;
+    }
+  }
+
+  .general-section {
+    label {
+      padding-top: 2px;
+    }
+  }
+
+  .about-section {
+    text-align: center;
+
+    .section-title {
+      text-align: left;
+    }
+  }
+}
+
+@media (min-width: 576px) {
+  .profile-page-right-section {
+    width: 90%;
+
+    .section {
+      display: block;
+    }
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+  .profile-page-right-section {
+    width: 85%;
+  }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+  .profile-page-right-section {
+    width: 80%;
+    max-width: 1024px;
+
+    .profile-pic {
+      width: 120px;
+      height: 120px;
+    }
+
+    .account-info-form {
+      display: flex;
+      flex-wrap: wrap;
+
+      & > div {
+        width: 48%;
+        margin: 0 1%;
+      }
+
+      & > button {
+        margin-left: 1%;
+      }
+    }
+
+    .backup-outer {
+      display: flex;
+      flex-wrap: wrap;
+
+      & > div {
+        width: 48%;
+        margin: 0 1%;
+      }
+
+      & > button {
+        margin-left: 1%;
+      }
+    }
+
+    .ch-password-outer {
+      display: flex;
+      flex-wrap: wrap;
+
+      & > div {
+        width: 48%;
+        margin: 0 1%;
+      }
+
+      & > button {
+        margin-left: 1%;
+      }
+    }
+  }
+}

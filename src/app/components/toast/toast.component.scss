@@ -1,0 +1,43 @@
+.toast {
+  position: fixed;
+  bottom: 12px;
+  right: 20px;
+  width: 250px;
+  height: 75px;
+  border-radius: 4px;
+  background: #fff;
+  box-shadow: 0px 0px 4px -2px #000;
+
+  .notice-text {
+    font-size: 14px;
+  }
+
+  .toast-header {
+    border-bottom: 1px solid #ccc;
+    padding: 4px;
+    background: var(--success);
+    justify-content: space-between;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+
+    .close-btn {
+      width: 18px;
+      height: 18px;
+      border: 1px solid #fff;
+      border-radius: 50%;
+      padding: 0;
+      margin: 0;
+      outline: none;
+      background: #fff;
+      cursor: pointer;
+
+      .icon {
+        font-size: 16px;
+      }
+    }
+  }
+
+  .toast-body {
+    padding: 8px;
+  }
+}

@@ -1,0 +1,135 @@
+<div class="profile-page">
+  <div class="profile-page-right-section">
+    <div class="account-section section">
+      <img
+        class="profile-pic mt-3"
+        src="./../../../assets/avatar-7.jpg"
+        alt="profile"
+      />
+      <h4 class="mt-3 mb-3 text-center">
+        {{ user.firstName | titlecase }} {{ user.lastName | titlecase }}
+      </h4>
+      <div class="d-flex mb-3">
+        <button class="btn btn-primary ml-auto" (click)="enableNotification()">
+          Enable Notification
+        </button>
+        <button class="btn btn-warning logout-btn mr-auto" (click)="onLogout()">
+          Log Out
+        </button>
+      </div>
+      <div class="account-info">
+        <form action="" class="account-info-form">
+          <div>
+            <label for="first-name">First Name</label>
+            <input
+              name="firstName"
+              type="text"
+              class="form-control"
+              placeholder="First Name"
+              [value]="user.firstName"
+              (input)="onFirstName($event)"
+            />
+          </div>
+          <div>
+            <label for="last-name">Last Name</label>
+            <input
+              name="lastName"
+              type="text"
+              class="form-control"
+              placeholder="Last Name"
+              [value]="user.lastName"
+              (input)="onLastName($event)"
+            />
+          </div>
+          <div>
+            <label for="dob">Date Of Barth</label>
+            <input
+              type="date"
+              class="form-control"
+              placeholder="Date Of Barth"
+            />
+          </div>
+          <div>
+            <label for="email">Email</label>
+            <input
+              type="email"
+              class="form-control"
+              placeholder="Email"
+              [value]="user.username"
+              disabled
+            />
+          </div>
+          <button class="btn btn-primary save-btn" (click)="onUserSave()">
+            Save
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="security-section section">
+      <h3 class="section-title">Security</h3>
+      <div class="backup-outer">
+        <div>
+          <label class="mb-0 mr-3">Pin: </label>
+          <input
+            [(ngModel)]="pin"
+            class="form-control"
+            type="text"
+            placeholder="Pin number"
+          />
+        </div>
+        <div>
+          <label class="mb-0 mr-3">Backup: </label>
+          <input
+            [(ngModel)]="backupPin"
+            class="form-control"
+            type="text"
+            placeholder="Backup pin"
+          />
+        </div>
+        <button class="btn btn-primary save-btn" (click)="onSave()">
+          Save
+        </button>
+      </div>
+
+      <div class="ch-password-outer">
+        <div>
+          <label for="first-name">Old Password</label>
+          <input type="text" class="form-control" placeholder="******" />
+        </div>
+        <div>
+          <label for="first-name">New Password</label>
+          <input type="text" class="form-control" placeholder="******" />
+        </div>
+        <button class="btn btn-primary save-btn">Save</button>
+      </div>
+    </div>
+    <div class="appearance-section section d-none">
+      <h3 class="section-title">Appearance</h3>
+      <div class="theme-toggle-btn d-flex">
+        <label class="custom-toggle">
+          <input type="checkbox" />
+          <span class="custom-toggle-slider rounded-circle"></span>
+        </label>
+        <p>Dark Mode</p>
+      </div>
+      <h3 class="section-title">Colors</h3>
+      <div class="colors-outer">
+        <button></button>
+        <button></button>
+        <button></button>
+        <button></button>
+        <button></button>
+        <button></button>
+        <button></button>
+      </div>
+    </div>
+    <div class="about-section section">
+      <h3 class="section-title">About</h3>
+      <a class="login-logo-text d-block" href="/">
+        <h2>M-Talk</h2>
+      </a>
+      <p class="verson-info">Version: 1.0.0.0</p>
+      <button class="btn btn-primary update-btn">Update</button>
+    </div>
+  </div>
+</div>

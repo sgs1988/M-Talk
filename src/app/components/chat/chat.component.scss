@@ -1,0 +1,56 @@
+.chat {
+  padding: 8px;
+  border-radius: 8px;
+
+  &:hover {
+    background: #e6ebf5;
+    cursor: pointer;
+  }
+
+  .profile-pic {
+    width: 40px;
+    height: 40px;
+  }
+
+  .chat-sender-info {
+    width: calc(100% - 48px);
+  }
+
+  .profile-name {
+    font-size: 16px;
+    font-weight: 400;
+    width: 70%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .chat-last-date {
+    font-size: 12px;
+  }
+
+  .chat-last-massage {
+    font-size: 13px;
+    width: 80%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+}
+
+@media (min-width: 767.98px) {
+  .chat {
+    .profile-pic {
+      width: 45px;
+      height: 45px;
+    }
+
+    .chat-sender-info {
+      width: calc(100% - 53px);
+    }
+
+    .profile-name {
+      width: 65%;
+    }
+  }
+}

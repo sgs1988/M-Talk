@@ -1,0 +1,60 @@
+.message-bubble {
+  width: 100%;
+
+  .message {
+    background: var(--white);
+    padding: 8px;
+    border-radius: 8px;
+    max-width: 95%;
+    font-size: 14px;
+    font-weight: 400;
+    margin: 5px 2px;
+    overflow-wrap: break-word;
+    position: relative;
+
+    &-text {
+      margin-bottom: 4px;
+      padding-right: 70px;
+    }
+
+    &-time {
+      font-size: 12px;
+      position: absolute;
+      bottom: 4px;
+      right: 8px;
+      margin-bottom: 0;
+    }
+  }
+
+  &.sender {
+    .message {
+      margin-left: auto;
+      background: var(--blue);
+      color: var(--secondary);
+    }
+  }
+}
+
+@media (min-width: 767.98px) {
+  .message-bubble {
+    .message {
+      max-width: 80%;
+    }
+  }
+}
+
+@media (min-width: 1399.98px) {
+  .message-bubble {
+    .message {
+      max-width: 50%;
+
+      &-text {
+        font-size: 15px;
+      }
+
+      &-time {
+        font-size: 10px;
+      }
+    }
+  }
+}

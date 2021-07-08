@@ -1,0 +1,41 @@
+<div class="messages-wrapper d-flex flex-column">
+  <div class="header d-flex">
+    <div class="d-flex">
+      <a routerLink="/chatlist" class="header-back-btn">
+        <span class="material-icons">arrow_back_ios</span>
+      </a>
+      <img
+        class="profile-pic"
+        src="./../../../assets/avatar-7.jpg"
+        alt="profile-pic"
+      />
+      <div>
+        <h5 class="is-5 mb-0 mt-0 profile-name">
+          {{ sender.firstName | titlecase }} {{ sender.lastName | titlecase }}
+        </h5>
+        <p class="mb-0 text-muted is-7">Online</p>
+      </div>
+    </div>
+    <div class="ml-auto flex-hv-centered info-btn-outer">
+      <p class="mb-0 mr-2">Messages are end to encrypted</p>
+      <span class="material-icons">info</span>
+    </div>
+  </div>
+
+  <div class="messages" #view>
+    <div *ngFor="let item of messages | keyvalue">
+      <div>
+        <p class="message-date">{{ item.key | chatDate }}</p>
+      </div>
+      <app-message
+        *ngFor="let message of item.value"
+        [message]="message"
+        [appMessage]="message.senderId === user.objectId"
+      ></app-message>
+    </div>
+  </div>
+  <app-message-form
+    class="message-form-outer"
+    (send)="sendMessage($event)"
+  ></app-message-form>
+</div>

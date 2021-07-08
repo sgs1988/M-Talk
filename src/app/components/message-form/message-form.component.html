@@ -1,0 +1,17 @@
+<div class="message-form">
+  <div class="form-group d-flex">
+    <input
+      [(ngModel)]="message"
+      (keydown.enter)="sendMessage()"
+      type="text"
+      class="form-control"
+      placeholder="Type message..."
+    />
+    <button
+      (click)="sendMessage()"
+      class="btn btn-primary btn-round btn-send flex-hv-centered"
+    >
+      <span class="material-icons">send</span>
+    </button>
+  </div>
+</div>
