@@ -13,8 +13,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   pin: string = '';
   backupPin: string = '';
   user: IUser = {} as IUser;
-  firstName = '';
-  lastName = '';
+  firstName: any = '';
+  lastName: any = '';
   dateOfBirth: Date | null = null;
   private subs = new SubSink();
   public isCollapsed = false;
@@ -28,8 +28,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
       }
 
       this.user = user;
-      this.firstName = this.user.firstName;
-      this.lastName = this.user.lastName;
+      this.firstName = this.user?.firstName;
+      this.lastName = this.user?.lastName;
     });
   }
 

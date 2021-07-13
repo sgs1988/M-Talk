@@ -5,9 +5,9 @@ export interface IInbox {
   userId: string; // the owner of the inbox
   senderId: string;
   sender: IPointer;
-  lastMessage: string;
+  lastMessage?: string;
   inboxHash: string;
-  deleted: boolean;
+  deleted?: boolean;
   updatedAt?: Date;
 }
 
@@ -16,9 +16,9 @@ export class Inbox {
   userId: string;
   senderId: string;
   sender: IPointer;
-  lastMessage: string;
+  lastMessage?: string;
   inboxHash: string;
-  deleted: boolean;
+  deleted?: boolean;
   updatedAt?: Date;
 
   constructor(inbox: IInbox) {

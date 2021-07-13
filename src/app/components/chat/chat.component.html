@@ -8,8 +8,11 @@
     />
     <div class="chat-sender-info">
       <div class="d-flex w-100 flex-v-centered justify-content-between">
-        <h5 class="mb-0 mt-0 profile-name">
+        <h5 class="mb-0 mt-0 profile-name" *ngIf='inbox.sender.groupname === undefined || inbox.sender.groupname === ""'>
           {{ inbox.sender.firstName }} {{ inbox.sender.lastName }}
+        </h5>
+        <h5 class="mb-0 mt-0 profile-name" *ngIf='inbox.sender.groupname !== undefined && inbox.sender.groupname !== ""'>
+          {{ inbox.sender.groupname }}
         </h5>
         <p class="mb-0 text-muted chat-last-date">
           {{ inbox.updatedAt | date: 'dd/MMM/yyyy' }}

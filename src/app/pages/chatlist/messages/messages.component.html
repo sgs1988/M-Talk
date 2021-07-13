@@ -10,8 +10,11 @@
         alt="profile-pic"
       />
       <div>
-        <h5 class="is-5 mb-0 mt-0 profile-name">
-          {{ sender.firstName | titlecase }} {{ sender.lastName | titlecase }}
+        <h5 class="mb-0 mt-0 profile-name" *ngIf='contactIdDetails.sender.groupname === undefined || contactIdDetails.sender.groupname === ""'>
+          {{ sender.firstName }} {{ sender.lastName }}
+        </h5>
+        <h5 class="mb-0 mt-0 profile-name" *ngIf='contactIdDetails.sender.groupname !== undefined && contactIdDetails.sender.groupname !== ""'>
+          {{ contactIdDetails.sender.groupname }}
         </h5>
         <p class="mb-0 text-muted is-7">Online</p>
       </div>
@@ -20,19 +23,69 @@
       <p class="mb-0 mr-2">Messages are end to encrypted</p>
       <span class="material-icons">info</span>
     </div>
+    <div class="member-btn-outer" *ngIf='contactIdDetails.sender.groupname !== undefined && contactIdDetails.sender.groupname !== ""'>
+      <button type="button" (click)="opemMemberList()">
+        <span class="material-icons">view_list</span>
+      </button>      
+    </div>
   </div>
 
+  <!-- Start add group Modal -->
+  <div class="modal" id="member-list" tabindex="-1" role="dialog"
+  aria-labelledby="addgroup-exampleModalLabel" aria-hidden="true" [ngClass]="{'group-model': enableMemberList}">
+   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h5 class="modal-title font-size-16" id="addgroup-exampleModalLabel">Members List</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeMemberList()">
+                   <span aria-hidden="true">&times;</span>
+               </button>
+           </div>
+           <div class="modal-body p-4">
+                   <div class="form-group mb-4">
+                     <div>
+                       <ul class="list-unstyled contact-list">
+                           <li *ngFor="let member of contactIdDetails.sender.groupmembers; let i = index">
+                             <div class="py-3 font-weight-bold brand-orange">
+                               {{member.firstName | titlecase}} {{member.lastName | titlecase}}
+                             </div>
+                           </li>
+                       </ul>
+                   </div>
+               </div>
+             </div>
+         </div>
+     </div>
+  </div>
+<!-- End add group Modal -->
+
   <div class="messages" #view>
-    <div *ngFor="let item of messages | keyvalue">
-      <div>
-        <p class="message-date">{{ item.key | chatDate }}</p>
+    <div *ngIf='contactIdDetails.sender.groupname === undefined || contactIdDetails.sender.groupname === ""'>
+      <div *ngFor="let item of messages | keyvalue">
+        <div>
+          <p class="message-date">{{ item.key | chatDate }}</p>
+        </div>
+        <app-message
+          *ngFor="let message of item.value"
+          [message]="message"
+          [appMessage]="message.senderId === user.objectId"
+        ></app-message>
       </div>
-      <app-message
-        *ngFor="let message of item.value"
-        [message]="message"
-        [appMessage]="message.senderId === user.objectId"
-      ></app-message>
     </div>
+    <div *ngIf='contactIdDetails.sender.groupname !== undefined && contactIdDetails.sender.groupname !== ""'>
+      <div class="message-bubble d-flex mb-1" *ngFor="let message of groupMessages">
+        <div class="message-section" *ngIf="message.senderId != userId">
+            <div class="col-xs-12">
+                <span class="is-5 mb-0 mt-0 profile-name">{{ message.senderName }}</span>
+            </div>
+            <div class="message-text col-xs-12">{{ message.message }}</div>
+        </div>
+        <div class="message-section message-section-auto" *ngIf="message.senderId == userId">
+            <div class="message-text col-xs-12">{{ message.message }}</div>
+        </div>
+    </div>
+    </div>
+    
   </div>
   <app-message-form
     class="message-form-outer"

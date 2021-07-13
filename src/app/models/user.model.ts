@@ -1,13 +1,15 @@
 export interface IUser {
   objectId: string;
-  firstName: string;
-  lastName: string;
-  username: string;
-  email: string;
+  firstName?: string;
+  lastName?: string;
+  username?: string;
+  groupname?: string;
+  groupmembers?: any;
+  email?: string;
   sessionToken: string;
-  session: ISession;
-  pin: string;
-  backupPin: string;
+  session?: ISession;
+  pin?: string;
+  backupPin?: string;
   __type?: string;
   className?: string;
 }
@@ -19,20 +21,24 @@ export interface ISession {
 }
 
 export class User {
-  firstName: string;
-  lastName: string;
-  username: string;
-  email: string;
+  firstName?: string;
+  lastName?: string;
+  username?: string;
+  groupname?: string;
+  groupmembers?: any;
+  email?: string;
   objectId: string;
   sessionToken: string;
-  session: ISession;
-  pin: string;
-  backupPin: string;
+  session?: ISession;
+  pin?: string;
+  backupPin?: string;
 
   constructor(user: IUser) {
     this.firstName = user.firstName;
     this.lastName = user.lastName;
     this.username = user.username;
+    this.groupname = user.groupname;
+    this.groupmembers = user.groupmembers;
     this.email = user.email;
     this.objectId = user.objectId;
     this.sessionToken = user.sessionToken;

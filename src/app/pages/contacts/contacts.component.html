@@ -77,7 +77,7 @@
       <ul class="list-unstyled contact-list">
         <li *ngFor="let user of users | contactFilter: searchText">
           <div class="py-3 font-weight-bold brand-orange">
-            {{ user.firstName.charAt(0) | uppercase }}
+            {{ user.firstName?.charAt(0) | uppercase }}
           </div>
           <div class="media align-items-center mb-3">
             <div class="media-body">

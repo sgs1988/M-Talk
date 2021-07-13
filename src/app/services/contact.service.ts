@@ -35,7 +35,7 @@ export class ContactService extends ObservableStore<StateStore> {
         map(({ results }) =>
           results
             .filter((result) => result.objectId !== user.objectId)
-            .sort((a, b) => {
+            .sort((a: any, b: any) => {
               const aFirstName = a.firstName.toLowerCase();
               const bFirstName = b.firstName.toLowerCase();
 

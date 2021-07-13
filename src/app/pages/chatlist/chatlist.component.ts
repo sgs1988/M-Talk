@@ -77,7 +77,9 @@ export class ChatlistComponent implements OnInit, OnDestroy {
         return;
       }
 
-      this.inboxes = inboxes;
+      if (this.inboxes.length === 0) { // Will be romove aftre API integration
+        this.inboxes = inboxes;
+      }
     });
     this.getContacts();
   }
@@ -128,9 +130,30 @@ export class ChatlistComponent implements OnInit, OnDestroy {
   nextNewGroup() {
     this.submitSection = true;
   }
+
+  addObjectId = 0; // Will be romove aftre API integration
+
   submitNewGroup() {
     this.submitSection = false;
     this.showParticipets = false;
+
+     // Will be romove aftre API integration
+    this.addObjectId = this.addObjectId + 1;
+    this.inboxes.unshift({
+      objectId: '9kimhgQNid' + this.addObjectId,
+      userId: '4Es9qW4ELk',
+      senderId: 'CEqn4p1U02',
+      sender: {
+        objectId: 'CEqn4p1U02',
+        groupname: this.groupSubject,
+        groupmembers: this.selectMembersList,
+        __type: 'Object',
+        className: '_User'
+      },
+      inboxHash: '02c04d64-a0e1-4d5b-a969-b9c03acace22',
+      updatedAt: new Date()
+    });
+    sessionStorage.setItem("contactDetails", JSON.stringify(this.inboxes));
   }
 
   ngOnDestroy() {

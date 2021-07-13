@@ -26,6 +26,10 @@ export class MessagesComponent implements OnInit, AfterViewChecked, OnDestroy {
   currentInbox: Inbox = {} as IInbox;
   sender: IUser = {} as IUser;
   messages: IMessages = {};
+  contactIdDetails: any = {};
+  enableMemberList: boolean = false;
+  groupMessages: any = [];
+  userId: any = 2;
 
   private subs = new SubSink();
 
@@ -39,7 +43,8 @@ export class MessagesComponent implements OnInit, AfterViewChecked, OnDestroy {
   async ngOnInit() {
     this.route.paramMap.subscribe((params) => {
       const paramId = params.get('id');
-
+      let getContactDetails: any = sessionStorage.getItem("contactDetails");
+      this.contactIdDetails = JSON.parse(getContactDetails).find((obj: any) => obj.objectId == paramId);
       this.inbox.setCurrent(paramId);
     });
 
@@ -55,7 +60,6 @@ export class MessagesComponent implements OnInit, AfterViewChecked, OnDestroy {
       if (!inbox) {
         return;
       }
-
       this.chat.fetchAll(inbox);
       this.chat.subscribe(inbox);
       this.currentInbox = inbox;
@@ -69,6 +73,31 @@ export class MessagesComponent implements OnInit, AfterViewChecked, OnDestroy {
 
       this.messages = messages;
     });
+
+
+    this.groupMessages = [{
+      objectId: '1',
+      senderId: '1',
+      senderName: 'Albert Son',
+      message: 'Hellow',
+      groupMessage: true
+    },
+    {
+      objectId: '2',
+      senderId: '2',
+      senderName: 'Abois Abois',
+      receiverId: '2',
+      message: 'Hi',
+      groupMessage: true
+    },
+    {
+      objectId: '3',
+      senderId: '1',
+      senderName: 'Albert Son',
+      receiverId: '2',
+      message: 'How are you. What are you doing now.',
+      groupMessage: true
+    }];
 
     this.scrollToBottom();
   }
@@ -86,6 +115,14 @@ export class MessagesComponent implements OnInit, AfterViewChecked, OnDestroy {
   sendMessage(message: string) {
     this.chat.sendMessage(message, this.currentInbox, this.user);
     this.scrollToBottom();
+  }
+
+  opemMemberList() {
+    this.enableMemberList = true;
+  }
+
+  closeMemberList() {
+    this.enableMemberList = false;
   }
 
   ngOnDestroy() {

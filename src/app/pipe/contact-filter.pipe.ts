@@ -13,7 +13,7 @@ export class ContactFilterPipe implements PipeTransform {
       return items;
     }
 
-    return items.filter((user) => {
+    return items.filter((user: any) => {
       const lowerFirst = user.firstName.toLowerCase();
       const lowerLast = user.lastName.toLowerCase();
       const name = `${lowerFirst} ${lowerLast}`;
