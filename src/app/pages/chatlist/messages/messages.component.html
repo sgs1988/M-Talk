@@ -24,7 +24,7 @@
       <span class="material-icons">info</span>
     </div>
     <div class="member-btn-outer" *ngIf='contactIdDetails.sender.groupname !== undefined && contactIdDetails.sender.groupname !== ""'>
-      <button type="button" (click)="opemMemberList()">
+      <button type="button" (click)="openMemberList()">
         <span class="material-icons">view_list</span>
       </button>      
     </div>
@@ -45,19 +45,100 @@
                    <div class="form-group mb-4">
                      <div>
                        <ul class="list-unstyled contact-list">
-                           <li *ngFor="let member of contactIdDetails.sender.groupmembers; let i = index">
-                             <div class="py-3 font-weight-bold brand-orange">
+                           <li class="row" *ngFor="let member of contactIdDetails.sender.groupmembers; let i = index">
+                             <div class="col-md-8 py-3 font-weight-bold brand-orange">
                                {{member.firstName | titlecase}} {{member.lastName | titlecase}}
+                             </div>
+                             <div class="col-md-4 py-3 text-right">
+                              <div *ngIf="member.admin === true" class="group-admin">Group admin</div>
+                              <div *ngIf="member.admin !== true">
+                                <button type="button" class="btn btn-danger no-uppercase" (click)="removeMember(member, i)">Remove</button>
+                              </div>
                              </div>
                            </li>
                        </ul>
                    </div>
-               </div>
+                  </div>
+                  <div class="text-right">
+                    <button type="button" class="btn btn-info no-uppercase" (click)="closeMemberList(); addNewMemberOpen();">Add new member</button>
+                  </div>
              </div>
          </div>
      </div>
   </div>
 <!-- End add group Modal -->
+
+<!-- Add New Member-->
+
+<div class="modal" id="member-list" tabindex="-1" role="dialog"
+  aria-labelledby="addgroup-exampleModalLabel" aria-hidden="true" [ngClass]="{'group-model': enableAddNewMember}">
+   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h5 class="modal-title font-size-16" id="addgroup-exampleModalLabel">Add New Member</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="addNewMemberClose(); openMemberList();">
+                   <span aria-hidden="true">&times;</span>
+               </button>
+           </div>
+           <div class="modal-body p-4">
+                   <div class="form-group mb-4">
+                    <div class="pl-3">
+                      <div class="form-group search-contact-list">
+                        <div class="chip-section">
+                          <div class="chip" *ngFor="let member of selectMembersList; let i = index">
+                            <div>
+                              <img
+                                    class="profile-pic"
+                                    src="./../../../assets/avatar-7.jpg"
+                                    alt="profile-pic"
+                                  />
+                              <span class="mt-0">{{member.firstName | titlecase}} {{member.lastName | titlecase}}</span>
+                            </div>
+                            <div><span class="material-icons" (click)="removeMemberList(member, i)">close</span></div>
+                          </div>
+                        </div>
+                        <div class="mb-4 pr-3">
+                          <input
+                            class="form-control search-input"
+                            [(ngModel)]="searchContactList"
+                            placeholder="Type contact name"
+                            type="text"
+                          />
+                        </div>
+                      </div>
+                      <div class="participets-list pl-3">
+                        <ul class="list-unstyled contact-list" *ngIf="( addContactList |  searchFilter: searchContactList) as result">
+                            <li *ngFor="let contact of result; let i = index">
+                              <div class="py-3 font-weight-bold brand-orange" *ngIf="checkIfNewAlphabet(contact.firstName)">
+                                {{contact.firstName.charAt(0) | uppercase}}
+                              </div>
+                              <div class="participets-list-item" (click)="selectMember(contact)">
+                                <div class="media">
+                                  <img
+                                    class="profile-pic"
+                                    src="./../../../assets/avatar-7.jpg"
+                                    alt="profile-pic"
+                                  />
+                                  <div class="media-body contact-list-item">
+                                    <span class="mt-0">{{contact.firstName | titlecase}} {{contact.lastName | titlecase}}</span>
+                                  </div>
+                                </div>
+                              </div>
+                            </li>
+                            <li *ngIf="result.length === 0" class="text-center">No contacts found</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="text-right">
+                    <button type="button" class="btn btn-success no-uppercase" [disabled]="selectMembersList.length === 0" (click)="addNewMember()">Add</button>
+                  </div>
+             </div>
+         </div>
+     </div>
+  </div>
+
+  <!-- End add new member-->
 
   <div class="messages" #view>
     <div *ngIf='contactIdDetails.sender.groupname === undefined || contactIdDetails.sender.groupname === ""'>
@@ -73,15 +154,22 @@
       </div>
     </div>
     <div *ngIf='contactIdDetails.sender.groupname !== undefined && contactIdDetails.sender.groupname !== ""'>
-      <div class="message-bubble d-flex mb-1" *ngFor="let message of groupMessages">
-        <div class="message-section" *ngIf="message.senderId != userId">
-            <div class="col-xs-12">
-                <span class="is-5 mb-0 mt-0 profile-name">{{ message.senderName }}</span>
-            </div>
-            <div class="message-text col-xs-12">{{ message.message }}</div>
+      <div class="message-bubble mb-1" *ngFor="let item of groupMessages | keyvalue">
+        <div>
+          <p class="message-date text-center">{{ item.key }}</p>
         </div>
-        <div class="message-section message-section-auto" *ngIf="message.senderId == userId">
-            <div class="message-text col-xs-12">{{ message.message }}</div>
+        <div *ngFor="let message of item.value; let i = index" [ngClass]="{'text-right': message.senderId == userId}">
+          <div class="message-section" *ngIf="message.senderId != userId">
+              <div class="col-xs-12">
+                  <span class="is-5 mb-0 mt-0 profile-name">{{ message.senderName }}</span>
+              </div>
+              <div class="message-text col-xs-12">{{ message.message }}</div>
+              <p class="message-time">{{ message.createdAt | date: 'hh:mm a' }}</p>
+          </div>
+          <div class="message-section message-section-auto" *ngIf="message.senderId == userId">
+              <div class="message-text col-xs-12">{{ message.message }}</div>
+              <p class="message-time">{{ message.createdAt | date: 'hh:mm a' }}</p>
+          </div>
         </div>
     </div>
     </div>

@@ -159,24 +159,6 @@
   }
 }
 
-// .new-group-form-section{
-//   background-color: #e5ddd5;
-//   margin-bottom: 0px;
-//   .form-control:focus{
-//     border: none;
-//     border-bottom: 1px solid #00bfa5;
-//     box-shadow: none;
-//     background-color: #e5ddd5;
-//   }
-//   .form-control {
-//     border: none;
-//     border-bottom: 1px solid #00bfa5;
-//     border-radius: inherit;
-//     outline: inherit;
-//     background-color: #e5ddd5;
-//   }
-// }
-
 @media (min-width: 767.98px) {
   .chat-list-outer {
     display: block;
@@ -191,15 +173,6 @@
       display: none;
     }
   }
-  // .hide-group-list {
-  //   display: none;
-  // }
-  // .participate-list-outer {
-  //   display: block;
-  //     padding-left: 10px;
-  //     padding-right: 0;
-  //     width: 450px;
-  // }
   
   .message-outer {
     padding-left: 15px;
