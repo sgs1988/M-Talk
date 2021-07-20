@@ -10,10 +10,10 @@
         alt="profile-pic"
       />
       <div>
-        <h5 class="mb-0 mt-0 profile-name" *ngIf='contactIdDetails.sender.groupname === undefined || contactIdDetails.sender.groupname === ""'>
+        <h5 class="mb-0 mt-0 profile-name" *ngIf='contactIdDetails.sender && (contactIdDetails.sender.groupname === undefined || contactIdDetails.sender.groupname === "")'>
           {{ sender.firstName }} {{ sender.lastName }}
         </h5>
-        <h5 class="mb-0 mt-0 profile-name" *ngIf='contactIdDetails.sender.groupname !== undefined && contactIdDetails.sender.groupname !== ""'>
+        <h5 class="mb-0 mt-0 profile-name" *ngIf='contactIdDetails.sender && contactIdDetails.sender.groupname !== undefined && contactIdDetails.sender.groupname !== ""'>
           {{ contactIdDetails.sender.groupname }}
         </h5>
         <p class="mb-0 text-muted is-7">Online</p>
@@ -23,7 +23,7 @@
       <p class="mb-0 mr-2">Messages are end to encrypted</p>
       <span class="material-icons">info</span>
     </div>
-    <div class="member-btn-outer" *ngIf='contactIdDetails.sender.groupname !== undefined && contactIdDetails.sender.groupname !== ""'>
+    <div class="member-btn-outer" *ngIf='contactIdDetails.sender && (contactIdDetails.sender.groupname !== undefined && contactIdDetails.sender.groupname !== "")'>
       <button type="button" (click)="openMemberList()">
         <span class="material-icons">view_list</span>
       </button>      
@@ -41,26 +41,55 @@
                    <span aria-hidden="true">&times;</span>
                </button>
            </div>
-           <div class="modal-body p-4">
+           <div class="modal-body p-4 contact-list-model-body">
                    <div class="form-group mb-4">
                      <div>
                        <ul class="list-unstyled contact-list">
-                           <li class="row" *ngFor="let member of contactIdDetails.sender.groupmembers; let i = index">
-                             <div class="col-md-8 py-3 font-weight-bold brand-orange">
-                               {{member.firstName | titlecase}} {{member.lastName | titlecase}}
-                             </div>
-                             <div class="col-md-4 py-3 text-right">
-                              <div *ngIf="member.admin === true" class="group-admin">Group admin</div>
-                              <div *ngIf="member.admin !== true">
-                                <button type="button" class="btn btn-danger no-uppercase" (click)="removeMember(member, i)">Remove</button>
+                          <li class="row mb-3">
+                            <div class="media">
+                              <img
+                                class="profile-pic"
+                                src="./../../../assets/avatar-7.jpg"
+                                alt="profile-pic"
+                              />
+                              <div class="media-body contact-list-item row">
+                                <div class="col-md-8 font-weight-bold brand-orange" (click)="closeMemberList(); addNewMemberOpen();">
+                                  Add participant
+                                </div>
                               </div>
-                             </div>
+                            </div>
+                          </li>
+                           <li class="row mb-3" *ngFor="let member of contactIdDetails.sender.groupmembers; let i = index">
+                            <div class="media">
+                              <img
+                                class="profile-pic"
+                                src="./../../../assets/avatar-7.jpg"
+                                alt="profile-pic"
+                              />
+                              <div class="media-body contact-list-item row">
+                                <div class="col-md-8 font-weight-bold brand-orange">
+                                  {{member.firstName | titlecase}} {{member.lastName | titlecase}}
+                                </div>
+                                <div class="col-md-4 text-right">
+                                 <div *ngIf="member.admin === true">
+                                   <div class="group-admin">Group admin</div>
+                                 </div>
+                                 <div class="dropdown" *ngIf="member.uid !== this.userId">
+                                    <label class="btn-link" type="button" id="dropdownAction" data-bs-toggle="dropdown" aria-expanded="false">
+                                      <span class="material-icons">keyboard_arrow_down</span>
+                                    </label>
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAction">
+                                      <li (click)="removeMember(member, i)"><a class="dropdown-item cursor-pointer">Remove</a></li>
+                                      <li *ngIf="member.admin === true" (click)="dismissAdmin(member, i)"><a class="dropdown-item cursor-pointer">Dismiss as admin</a></li>
+                                      <li *ngIf="member.admin !== true" (click)="makeAdmin(member, i)"><a class="dropdown-item cursor-pointer">Make Group admin</a></li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                            </li>
                        </ul>
                    </div>
-                  </div>
-                  <div class="text-right">
-                    <button type="button" class="btn btn-info no-uppercase" (click)="closeMemberList(); addNewMemberOpen();">Add new member</button>
                   </div>
              </div>
          </div>

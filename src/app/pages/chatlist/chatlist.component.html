@@ -73,7 +73,7 @@
           />
         </div>
       </div>
-      <div class="participets-list pl-3" [ngClass]="{'participets-list-height-adjust-one': (selectMembersList.length > 0 && selectMembersList.length < 4), 'participets-list-height-adjust-two': selectMembersList.length > 3 }">
+      <div class="participets-list pl-3" [ngClass]="{'participets-list-height-adjust-one': (selectMembersList.length > 0 && selectMembersList.length < 3), 'participets-list-height-adjust-two': selectMembersList.length > 2 }">
         <ul class="list-unstyled contact-list" *ngIf="( contactList |  searchFilter: searchContactList) as result">
             <li *ngFor="let contact of result; let i = index">
               <div class="py-3 font-weight-bold brand-orange" *ngIf="checkIfNewAlphabet(contact.firstName)">

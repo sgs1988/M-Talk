@@ -168,6 +168,20 @@ export class MessagesComponent implements OnInit, AfterViewChecked, OnDestroy {
   
   removeMember(member: any, index: number) {
     this.contactIdDetails.sender.groupmembers.splice(index, 1);
+    this.updateSessionStorage();
+  }
+
+  dismissAdmin(member: any, index: number) {
+    this.contactIdDetails.sender.groupmembers[index].admin = false;
+    this.updateSessionStorage();
+  }
+
+  makeAdmin(member: any, index: number) {
+    this.contactIdDetails.sender.groupmembers[index].admin = true;
+    this.updateSessionStorage();
+  }
+
+  updateSessionStorage () {
     let setContactDetails = JSON.parse(this.getContactDetails).map((obj: any) => {
       if(obj.objectId == this.paramId) {
         obj.sender.groupmembers = this.contactIdDetails.sender.groupmembers;

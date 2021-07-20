@@ -234,6 +234,29 @@
     }
   }
 }
+.contact-list-model-body {
+  overflow-x: hidden;
+  .contact-list {
+    margin-bottom: 15px;
+    cursor: pointer;
+    .contact-list-item {
+      min-height: 50px;
+      border-top: 1px solid #f2f2f2;
+      padding: 5px;
+      .dropdown {
+        position: absolute;
+        right: 5%;
+        display: none;
+      }
+      &:hover {
+        .dropdown {
+          display: block;
+        }
+      }
+    }
+  }
+}
+
 @media (min-width: 991.98px) {
   .messages {
     height: calc(100vh - 178px) !important;

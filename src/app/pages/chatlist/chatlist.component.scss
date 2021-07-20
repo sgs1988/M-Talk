@@ -53,8 +53,8 @@
     width: 450px;
 
     .participets-header {
-      background-color: #00bfa5;
-      color: #ffffff;
+      // background-color: #00bfa5;
+      // color: #ffffff;
       // padding: 15px;
       .material-icons {font-size: 19px;}
       .chatlist-title {
@@ -85,7 +85,7 @@
       }
     }
     .participets-list {
-      max-height: 60vh;
+      max-height: 70vh;
       overflow-y: auto;
       .participets-list-item {
         margin-bottom: 15px;
@@ -98,7 +98,7 @@
       }
     }
     .participets-list-height-adjust-one {
-      max-height: 50vh;
+      max-height: 57vh;
     }
     .participets-list-height-adjust-two {
       max-height: 50vh;
